@@ -1,0 +1,97 @@
+name: Publish APT Repository
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and publish Valo packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            devscripts \
+            dpkg-dev \
+            reprepro \
+            gnupg
+
+      - name: Check for package sources
+        id: packages
+        run: |
+          if find packages -mindepth 3 -maxdepth 3 -path '*/debian/control' | grep -q .; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No Debian package sources found yet. Nothing to publish."
+          fi
+
+      - name: Build packages
+        if: steps.packages.outputs.found == 'true'
+        run: |
+          find packages -path '*/debian/rules' -exec chmod +x {} \;
+          find packages -path '*/debian/postinst' -exec chmod +x {} \;
+          for package_dir in \
+            packages/valo-keyring \
+            packages/valo-release \
+            packages/valo-defaults
+          do
+            test -f "$package_dir/debian/control" || continue
+            (cd "$package_dir" && debuild -us -uc -b)
+          done
+
+      - name: Prepare signing key
+        if: steps.packages.outputs.found == 'true'
+        env:
+          VALO_APT_SIGNING_KEY: ${{ secrets.VALO_APT_SIGNING_KEY }}
+        run: |
+          if [ -n "$VALO_APT_SIGNING_KEY" ]; then
+            printf '%s' "$VALO_APT_SIGNING_KEY" | gpg --batch --import
+          else
+            echo "No signing key configured. Publishing unsigned v0.1 testing repository."
+          fi
+
+      - name: Create APT repository
+        if: steps.packages.outputs.found == 'true'
+        env:
+          VALO_APT_SIGNING_KEY_ID: ${{ secrets.VALO_APT_SIGNING_KEY_ID }}
+        run: |
+          mkdir -p repo/conf
+          if [ -n "$VALO_APT_SIGNING_KEY_ID" ]; then
+            sign_with="$VALO_APT_SIGNING_KEY_ID"
+          else
+            sign_with="no"
+          fi
+
+          cat > repo/conf/distributions <<EOF
+          Origin: Valo Linux
+          Label: Valo Linux
+          Codename: testing
+          Architectures: amd64
+          Components: main
+          Description: Valo Linux integration packages
+          SignWith: ${sign_with}
+          EOF
+
+          for deb in packages/*.deb; do
+            reprepro --basedir repo includedeb testing "$deb"
+          done
+
+      - name: Publish to GitHub Pages branch
+        if: steps.packages.outputs.found == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./repo

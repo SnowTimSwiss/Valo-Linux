@@ -1,0 +1,3 @@
+# Keep the live system installable from the boot menu through Debian Installer.
+# live-build adds the installer image through --debian-installer live.
+debian-installer-launcher

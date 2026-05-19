@@ -1,0 +1,40 @@
+# Core live system
+linux-image-amd64
+live-boot
+live-config
+systemd-sysv
+sudo
+
+# Networking and hardware support
+network-manager
+network-manager-gnome
+wireless-tools
+wpasupplicant
+bluetooth
+bluez
+firmware-linux-free
+firmware-misc-nonfree
+firmware-iwlwifi
+firmware-realtek
+firmware-amd-graphics
+
+# Desktop
+task-gnome-desktop
+gdm3
+pipewire-audio
+wireplumber
+firefox-esr
+gnome-software
+gnome-software-plugin-deb
+packagekit
+packagekit-tools
+
+# Laptop basics
+task-laptop
+power-profiles-daemon
+upower
+
+# Valo integration packages built from this repository
+valo-keyring
+valo-release
+valo-defaults

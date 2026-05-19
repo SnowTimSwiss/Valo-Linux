@@ -1,0 +1,14 @@
+Source: valo-release
+Section: admin
+Priority: optional
+Maintainer: Valo Linux Team <team@valo-linux.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: valo-release
+Architecture: all
+Depends: valo-keyring (>= 0.1), ${misc:Depends}
+Description: Valo Linux release metadata
+ This package installs Valo Linux release metadata and will provide the Valo
+ APT source configuration once the signed repository is ready.

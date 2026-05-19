@@ -1,0 +1,35 @@
+# live-build working directories and generated artifacts
+/.build/
+/binary/
+/cache/
+/chroot/
+/local/
+/config/binary
+/config/bootstrap
+/config/chroot
+/config/common
+/config/source
+
+# ISO and checksum outputs
+/*.iso
+/*.img
+/*.hybrid.iso
+/*.contents
+/*.packages
+/*.zsync
+/*SHA256SUMS
+
+# Debian package build outputs
+/packages/*.build
+/packages/*.buildinfo
+/packages/*.changes
+/packages/*.deb
+/packages/*.dsc
+/packages/*.tar.*
+/repo/
+
+# Local editor and OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

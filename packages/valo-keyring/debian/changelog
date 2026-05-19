@@ -1,0 +1,5 @@
+valo-keyring (0.1) unstable; urgency=medium
+
+  * Initial empty package skeleton for the future Valo APT archive key.
+
+ -- Valo Linux Team <team@valo-linux.invalid>  Mon, 18 May 2026 22:30:00 +0200

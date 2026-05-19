@@ -1,0 +1,6 @@
+valo-release (0.1) unstable; urgency=medium
+
+  * Initial package skeleton with Valo release version metadata.
+  * Add template for the future Valo APT source definition.
+
+ -- Valo Linux Team <team@valo-linux.invalid>  Mon, 18 May 2026 22:30:00 +0200

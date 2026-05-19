@@ -1,0 +1,86 @@
+name: Build ISO
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Valo Linux ISO
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install live-build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            build-essential \
+            debhelper \
+            devscripts \
+            dpkg-dev \
+            live-build \
+            xorriso \
+            isolinux \
+            syslinux-common \
+            syslinux-utils \
+            squashfs-tools
+
+      - name: Build Valo packages
+        run: |
+          find packages -path '*/debian/rules' -exec chmod +x {} \;
+          find packages -path '*/debian/postinst' -exec chmod +x {} \;
+          for package_dir in \
+            packages/valo-keyring \
+            packages/valo-release \
+            packages/valo-defaults
+          do
+            (cd "$package_dir" && dpkg-buildpackage -us -uc -b)
+          done
+          cp packages/*.deb config/packages.chroot/
+
+      - name: Configure live-build
+        run: |
+          sudo lb config \
+            --mode debian \
+            --distribution testing \
+            --architectures amd64 \
+            --binary-images iso-hybrid \
+            --debian-installer live \
+            --archive-areas "main contrib non-free-firmware" \
+            --iso-application "Valo Linux" \
+            --iso-publisher "Valo Linux" \
+            --iso-volume "Valo Linux ${GITHUB_REF_NAME}"
+
+      - name: Build ISO
+        run: sudo lb build
+
+      - name: Prepare release artifact
+        run: |
+          ISO="$(find . -maxdepth 1 -type f -name '*.iso' | head -n 1)"
+          test -n "$ISO"
+          cp "$ISO" "valo-linux-${GITHUB_REF_NAME}-amd64.iso"
+          sha256sum "valo-linux-${GITHUB_REF_NAME}-amd64.iso" > "valo-linux-${GITHUB_REF_NAME}-amd64.iso.sha256"
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          if ! gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release create "$TAG_NAME" \
+              --title "Valo Linux ${TAG_NAME}" \
+              --notes "Automated Valo Linux ISO build for ${TAG_NAME}."
+          fi
+
+          gh release upload "$TAG_NAME" \
+            "valo-linux-${TAG_NAME}-amd64.iso" \
+            "valo-linux-${TAG_NAME}-amd64.iso.sha256" \
+            --clobber

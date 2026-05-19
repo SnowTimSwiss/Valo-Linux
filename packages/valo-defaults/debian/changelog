@@ -1,0 +1,5 @@
+valo-defaults (0.1) unstable; urgency=medium
+
+  * Initial package skeleton for future Valo defaults and migrations.
+
+ -- Valo Linux Team <team@valo-linux.invalid>  Mon, 18 May 2026 22:30:00 +0200

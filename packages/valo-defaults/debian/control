@@ -1,0 +1,14 @@
+Source: valo-defaults
+Section: misc
+Priority: optional
+Maintainer: Valo Linux Team <team@valo-linux.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: valo-defaults
+Architecture: all
+Depends: valo-release (>= 0.1), ${misc:Depends}
+Description: Valo Linux default settings and migrations
+ This package provides Valo-owned default settings and migration logic for
+ installed systems.

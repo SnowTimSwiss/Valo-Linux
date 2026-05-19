@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # Future migrations go here. Use "$2" as the previously installed
+        # version and keep each migration idempotent.
+        :
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,16 @@
+Source: valo-keyring
+Section: misc
+Priority: optional
+Maintainer: Valo Linux Team <team@valo-linux.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: valo-keyring
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Valo Linux APT archive keyring
+ This package will install the public signing key used by the Valo Linux APT
+ repository. The v0.1 package is a skeleton until the production key is
+ generated.
