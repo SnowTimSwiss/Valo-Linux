@@ -26,6 +26,7 @@ jobs:
             debhelper \
             devscripts \
             dpkg-dev \
+            gnupg \
             live-build \
             xorriso \
             isolinux \
@@ -54,6 +55,7 @@ jobs:
             --architectures amd64 \
             --binary-images iso-hybrid \
             --debian-installer live \
+            --debootstrap-options "--include=gnupg" \
             --security false \
             --archive-areas "main contrib non-free-firmware" \
             --iso-application "Valo Linux" \
