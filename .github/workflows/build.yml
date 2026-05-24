@@ -32,7 +32,8 @@ jobs:
             isolinux \
             syslinux-common \
             syslinux-utils \
-            squashfs-tools
+            squashfs-tools \
+            debian-archive-keyring
 
       - name: Build Valo packages
         run: |
