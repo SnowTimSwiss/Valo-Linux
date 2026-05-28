@@ -56,6 +56,7 @@ jobs:
             --architectures amd64 \
             --binary-images iso-hybrid \
             --debian-installer live \
+            --apt-secure false \
             --security false \
             --archive-areas "main contrib non-free-firmware" \
             --iso-application "Valo Linux" \
