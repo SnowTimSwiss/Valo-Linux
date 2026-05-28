@@ -35,11 +35,14 @@ jobs:
             squashfs-tools \
             debian-archive-keyring
 
-      - name: Patch Ubuntu live-build Contents path
+      - name: Patch Ubuntu live-build Contents paths
         run: |
-          sudo sed -i \
-            's|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/main/Contents-${LB_ARCHITECTURES}.gz|' \
-            /usr/lib/live/build/lb_chroot_linux-image
+          matches="$(sudo grep -rl 'dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz' /usr/lib/live/build || true)"
+          if [ -n "$matches" ]; then
+            printf '%s\n' "$matches" |
+              sudo xargs sed -i \
+                's|dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz|dists/${LB_PARENT_DISTRIBUTION}/main/Contents-${LB_ARCHITECTURES}.gz|g'
+          fi
 
       - name: Validate Debian package list
         run: |
