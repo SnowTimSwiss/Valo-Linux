@@ -91,6 +91,7 @@ jobs:
             --architectures amd64 \
             --binary-images iso-hybrid \
             --debian-installer live \
+            --initsystem systemd \
             --apt-secure false \
             --apt-options "--yes -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true -o APT::Get::AllowUnauthenticated=true" \
             --security false \
