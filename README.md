@@ -2,7 +2,7 @@
 
 > Debian done right: clean GNOME defaults, laptop-first, built entirely in the open.
 
-Valo is a Debian Testing-based Linux distribution focused on great
+Valo is a Debian 13 (Trixie)-based Linux distribution focused on great
 out-of-the-box defaults, good laptop behavior, and solid hardware support. No
 bloat, no forced package managers, no private build server.
 
@@ -16,7 +16,7 @@ opinions baked in. Valo aims to be the middle ground:
 - **Clean GNOME**: sensible defaults, not a Windows clone.
 - **Laptop-first**: battery and firmware decisions should work well by default.
 - **Fully open build**: every ISO is built by GitHub Actions.
-- **Debian-based**: Valo stays close to Debian Testing instead of replacing it.
+- **Debian-based**: Valo stays close to Debian stable instead of replacing it.
 
 ## How Releases Work
 
@@ -34,7 +34,7 @@ You can inspect the ISO build pipeline in
 
 Valo `v0.1` is the first installable baseline:
 
-- Debian Testing base.
+- Debian 13 (Trixie) base.
 - GNOME desktop through Debian packages.
 - Live ISO built with Debian live-build.
 - Debian Installer available from the boot menu.
@@ -48,7 +48,7 @@ It intentionally does not include custom themes, desktop tweaks, or hooks yet.
 
 ## Update Model
 
-Valo should stay close to Debian Testing, but Valo-specific defaults still need
+Valo should stay close to Debian stable, but Valo-specific defaults still need
 a safe path from one installed release to the next. The plan is to keep a very
 small Valo APT repository in this same GitHub repository and publish it through
 GitHub Pages.
@@ -69,7 +69,7 @@ sudo apt upgrade
 
 Valo should not mirror Debian packages or maintain a large package archive. The
 Valo repository exists only to deliver Valo's own small integration packages.
-For `v0.1`, this repository is enabled in testing mode through GitHub Pages at
+For `v0.1`, this repository is enabled through GitHub Pages at
 `https://snowtimswiss.github.io/Valo-Linux`.
 
 More detail is documented in [docs/update-model.md](docs/update-model.md).

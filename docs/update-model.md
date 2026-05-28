@@ -1,18 +1,18 @@
 # Valo Update Model
 
-Valo is based on Debian Testing and should stay close to Debian. Most packages
+Valo is based on Debian 13 (Trixie) and should stay close to Debian. Most packages
 come directly from Debian, and users update those packages with normal APT
 commands.
 
 Valo still needs a way to deliver Valo-specific changes after installation. For
 example, `v0.2` may need to adjust a configuration file that was installed by
-`v0.1`. Debian Testing alone cannot deliver that change, because Debian does not
+`v0.1`. Debian alone cannot deliver that change, because Debian does not
 know about Valo's custom defaults.
 
 ## Decision
 
 Valo will maintain a very small APT repository in this GitHub repository. The
-repository will be published through GitHub Pages. During `v0.1` testing this
+repository will be published through GitHub Pages. During `v0.1` this
 repository is trusted through HTTPS only; for public non-test releases it should
 be signed with a Valo archive key.
 
@@ -24,9 +24,9 @@ This repository is only for Valo-owned integration packages:
 
 Valo will not mirror Debian packages and will not fork Debian's package archive.
 
-## v0.1 Testing Repository
+## v0.1 Valo Repository
 
-For early testing, `valo-release` enables this repository URL:
+For early releases, `valo-release` enables this repository URL:
 
 ```text
 https://snowtimswiss.github.io/Valo-Linux
@@ -46,7 +46,7 @@ and ship the matching public key through `valo-keyring`.
 
 ## How Updates Reach Users
 
-An installed Valo system should have both Debian Testing sources and the Valo
+An installed Valo system should have both Debian 13 (Trixie) sources and the Valo
 APT source configured.
 
 Users update with the standard workflow:

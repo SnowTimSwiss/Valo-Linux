@@ -27,7 +27,6 @@ firefox-esr
 gnome-software
 gnome-software-plugin-deb
 packagekit
-packagekit-tools
 
 # Laptop basics
 task-laptop

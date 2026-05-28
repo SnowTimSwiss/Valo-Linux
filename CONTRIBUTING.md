@@ -2,7 +2,7 @@
 
 Thanks for helping shape Valo Linux.
 
-Valo is a Debian Testing-based live system built entirely with Debian
+Valo is a Debian 13 (Trixie)-based live system built entirely with Debian
 live-build and GitHub Actions. The repository should stay small,
 auditable, and reproducible.
 
@@ -46,7 +46,7 @@ On a Debian or Debian-like build host with `live-build` installed:
 ```sh
 sudo lb config \
   --mode debian \
-  --distribution testing \
+  --distribution trixie \
   --architectures amd64 \
   --binary-images iso-hybrid \
   --debian-installer none \
@@ -74,7 +74,7 @@ its SHA256 checksum to the matching GitHub Release.
 
 ## Update Model
 
-Valo uses Debian Testing for the operating system package base. Debian packages
+Valo uses Debian 13 (Trixie) for the operating system package base. Debian packages
 should come from Debian whenever possible.
 
 For Valo-specific configuration changes, Valo will use a tiny signed APT

@@ -61,7 +61,7 @@ jobs:
           if [ -n "$VALO_APT_SIGNING_KEY" ]; then
             printf '%s' "$VALO_APT_SIGNING_KEY" | gpg --batch --import
           else
-            echo "No signing key configured. Publishing unsigned v0.1 testing repository."
+            echo "No signing key configured. Publishing unsigned v0.1 trixie repository."
           fi
 
       - name: Create APT repository
@@ -79,7 +79,7 @@ jobs:
           cat > repo/conf/distributions <<EOF
           Origin: Valo Linux
           Label: Valo Linux
-          Codename: testing
+          Codename: trixie
           Architectures: amd64
           Components: main
           Description: Valo Linux integration packages
@@ -87,7 +87,7 @@ jobs:
           EOF
 
           for deb in packages/*.deb; do
-            reprepro --basedir repo includedeb testing "$deb"
+            reprepro --basedir repo includedeb trixie "$deb"
           done
 
       - name: Publish to GitHub Pages branch

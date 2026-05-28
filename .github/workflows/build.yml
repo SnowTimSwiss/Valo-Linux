@@ -41,6 +41,35 @@ jobs:
             's|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/main/Contents-${LB_ARCHITECTURES}.gz|' \
             /usr/lib/live/build/lb_chroot_linux-image
 
+      - name: Validate Debian package list
+        run: |
+          docker run --rm \
+            -v "$PWD:/work:ro" \
+            -w /work \
+            debian:trixie-slim \
+            bash -euxc '
+              sed -i "s/Components: main/Components: main contrib non-free-firmware/" /etc/apt/sources.list.d/debian.sources
+              apt-get update
+              missing=""
+              while read -r package
+              do
+                if ! apt-cache show "$package" >/dev/null 2>&1
+                then
+                  missing="${missing} ${package}"
+                fi
+              done < <(
+                sed "s/#.*//" config/package-lists/*.list.chroot |
+                  sed "/^[[:space:]]*$/d" |
+                  grep -v "^valo-"
+              )
+
+              if [ -n "$missing" ]
+              then
+                echo "Missing Debian packages:${missing}" >&2
+                exit 1
+              fi
+            '
+
       - name: Build Valo packages
         run: |
           find packages -path '*/debian/rules' -exec chmod +x {} \;
@@ -58,7 +87,7 @@ jobs:
         run: |
           sudo lb config \
             --mode debian \
-            --distribution testing \
+            --distribution trixie \
             --architectures amd64 \
             --binary-images iso-hybrid \
             --debian-installer live \
