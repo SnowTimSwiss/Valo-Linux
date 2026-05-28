@@ -8,7 +8,7 @@ installation. They should stay tiny and focused.
 ## Planned Packages
 
 - `valo-keyring`: installs the public signing key for the Valo APT repository.
-- `valo-release`: installs Valo release metadata and the Valo APT source file.
+- `valo-release`: installs Valo release metadata and the Valo APT source template.
 - `valo-defaults`: installs Valo defaults and handles safe migrations.
 
 The Valo package repository should not mirror Debian packages. It exists only

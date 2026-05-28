@@ -19,22 +19,22 @@ be signed with a Valo archive key.
 This repository is only for Valo-owned integration packages:
 
 - `valo-keyring`: installs the public signing key for the Valo APT repository.
-- `valo-release`: installs Valo release metadata and the Valo APT source file.
+- `valo-release`: installs Valo release metadata and a Valo APT source template.
 - `valo-defaults`: installs Valo defaults and handles safe migrations.
 
 Valo will not mirror Debian packages and will not fork Debian's package archive.
 
 ## v0.1 Valo Repository
 
-For early releases, `valo-release` enables this repository URL:
+For early releases, `valo-release` ships a template for this repository URL:
 
 ```text
 https://snowtimswiss.github.io/Valo-Linux
 ```
 
-The `v0.1` source uses `Trusted: yes` because the production archive signing key
-does not exist yet. This lets installed `v0.1` systems receive `valo-defaults`
-`0.2` later through normal APT, but it is not the final security model.
+The `v0.1` source template uses `Trusted: yes` because the production archive
+signing key does not exist yet. Enable it only once the GitHub Pages repository
+has published matching Trixie metadata.
 
 Before a public non-test release, replace `Trusted: yes` with:
 
@@ -46,8 +46,9 @@ and ship the matching public key through `valo-keyring`.
 
 ## How Updates Reach Users
 
-An installed Valo system should have both Debian 13 (Trixie) sources and the Valo
-APT source configured.
+An installed Valo system should have Debian 13 (Trixie) sources configured. Once
+the Valo repository is published, it should also have the Valo APT source
+enabled.
 
 Users update with the standard workflow:
 

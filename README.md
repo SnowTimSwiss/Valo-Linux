@@ -69,8 +69,8 @@ sudo apt upgrade
 
 Valo should not mirror Debian packages or maintain a large package archive. The
 Valo repository exists only to deliver Valo's own small integration packages.
-For `v0.1`, this repository is enabled through GitHub Pages at
-`https://snowtimswiss.github.io/Valo-Linux`.
+For `v0.1`, the Valo APT source is shipped as a template and will be enabled
+once the GitHub Pages repository has published Trixie metadata.
 
 More detail is documented in [docs/update-model.md](docs/update-model.md).
 
