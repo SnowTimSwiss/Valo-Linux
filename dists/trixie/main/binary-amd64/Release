@@ -1,0 +1,5 @@
+Component: main
+Origin: Valo Linux
+Label: Valo Linux
+Architecture: amd64
+Description: Valo Linux integration packages

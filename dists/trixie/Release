@@ -1,0 +1,19 @@
+Origin: Valo Linux
+Label: Valo Linux
+Codename: trixie
+Date: Thu, 28 May 2026 20:23:20 UTC
+Architectures: amd64
+Components: main
+Description: Valo Linux integration packages
+MD5Sum:
+ 19db011f6175ffb94a9aeacb63ba2585 1798 main/binary-amd64/Packages
+ de93c60e98e4c0bf32d8bfd8212bb374 807 main/binary-amd64/Packages.gz
+ 4f6e4388e9299fc6d02ece889c38c7a2 118 main/binary-amd64/Release
+SHA1:
+ 6bf14e32706a21d0597e04e851af934f34663f3a 1798 main/binary-amd64/Packages
+ 534d7a6317f11ae5e7a7c4758aca45d6261281b0 807 main/binary-amd64/Packages.gz
+ cd90878aa5c254f6fa3d78892f018fe2d5680bf9 118 main/binary-amd64/Release
+SHA256:
+ e0a8158fca023ea4cbc9277d3763d800bab2ac9b8ad928c60bfbd0621910fb4a 1798 main/binary-amd64/Packages
+ 03367c7d40cc1ce1002e0f24e15d2ec91c12c009fe7a54c905ba73008b6d2696 807 main/binary-amd64/Packages.gz
+ 5448cbf77d50f21769571f59cc552e2d216bfb9cca6783cd99a690e8ceb84ecf 118 main/binary-amd64/Release

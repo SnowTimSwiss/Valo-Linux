@@ -1,0 +1,6 @@
+Origin: Valo Linux
+Label: Valo Linux
+Codename: trixie
+Architectures: amd64
+Components: main
+Description: Valo Linux integration packages
