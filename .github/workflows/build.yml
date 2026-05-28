@@ -35,6 +35,12 @@ jobs:
             squashfs-tools \
             debian-archive-keyring
 
+      - name: Patch Ubuntu live-build Contents path
+        run: |
+          sudo sed -i \
+            's|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz|${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/main/Contents-${LB_ARCHITECTURES}.gz|' \
+            /usr/lib/live/build/lb_chroot_linux-image
+
       - name: Build Valo packages
         run: |
           find packages -path '*/debian/rules' -exec chmod +x {} \;
