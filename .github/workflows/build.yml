@@ -61,6 +61,7 @@ jobs:
             --iso-application "Valo Linux" \
             --iso-publisher "Valo Linux" \
             --iso-volume "Valo Linux ${GITHUB_REF_NAME}"
+          sudo sed -i 's/^LB_BOOTSTRAP_INCLUDE=.*/LB_BOOTSTRAP_INCLUDE="gpg gnupg gpgv"/' config/bootstrap
 
       - name: Build ISO
         run: sudo lb build
